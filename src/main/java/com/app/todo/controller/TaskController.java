@@ -1,10 +1,13 @@
 package com.app.todo.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.todo.models.Task;
 import com.app.todo.services.TaskService;
@@ -26,6 +29,30 @@ public class TaskController {
         List<Task> tasks = taskService.getAllTasks();
         model.addAttribute("tasks", tasks);
         return "tasks";// Spring intereprets this as a request to render the tasks.html template
+    }
+
+    @PostMapping
+    public String createTask(@RequestParam String title) {// Model -> a container for data that you want to give to your
+                                                          // HTML template
+
+        taskService.createTask(title);
+        // return "h"; -> spring tries to find h.html and since I don't have it thus the
+        // error
+        return "redirect:/";// after creating task we need to refresh task so we go
+        // to
+        // root where all tasks are there
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/toggle")
+    public String toggleTask(@PathVariable Long id) {
+        taskService.toggleTask(id);
+        return "redirect:/";
     }
 
 }
