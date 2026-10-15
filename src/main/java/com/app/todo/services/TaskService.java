@@ -2,6 +2,7 @@ package com.app.todo.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.app.todo.models.Task;
@@ -16,7 +17,7 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+        return taskRepository.findAll(Sort.by("id"));
     }
 
     public void createTask(String title) {

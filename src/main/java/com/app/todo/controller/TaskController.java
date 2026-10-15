@@ -52,7 +52,7 @@ public class TaskController {
     @GetMapping("/{id}/toggle")
     public String toggleTask(@PathVariable Long id) {
         taskService.toggleTask(id);
-        return "redirect:/";
+        return "redirect:/";// GET request and ' / ' -> root path where all tasks are there
     }
 
 }

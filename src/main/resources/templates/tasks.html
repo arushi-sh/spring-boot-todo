@@ -30,7 +30,7 @@
 
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-solid theme-primary btn-lg">
+                <button type="submit" class="btn btn-solid theme-primary btn-lg btn-block">
                     Add
                 </button>
             </div>
@@ -45,7 +45,11 @@
                         <span th:classappend="${task.completed} ? 'text-strikethrough'" th:text="${task.title}">Task
                             Title</span>
                         <div>
-                            <a th:href="@{/{id}/toggle(id=${task.id})}" class="btn btn-outline-secondary">Toggle</a>
+                            <a th:href="@{/{id}/toggle(id=${task.id})}"
+                                class="btn btn-outline-secondary btn-sm">Toggle</a>
+                            <!-- <a> tag defines element as hyperlink, and class="" makes link look like a small, outlined red button -->
+                            <a th:href="@{/{id}/delete(id=${task.id})}" class="btn btn-outline-danger btn-sm">Delete</a>
+
                         </div>
 
                     </div>
