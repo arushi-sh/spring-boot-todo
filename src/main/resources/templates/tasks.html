@@ -10,45 +10,102 @@
         integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL"
         crossorigin="anonymous"></script>
     <style>
+        body {
+            background-color: #e3d3a4;
+            /* dirty yellow beige */
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+
         .text-strikethrough {
             text-decoration: line-through;
             color: grey;
+        }
+
+        /* input on the left, Add button on the right */
+        .add-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .add-form input {
+            flex: 1;
+        }
+
+        /* keeps the add form and task list from stretching across the whole screen */
+        .container.todo-box {
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* space above the heading so it doesn't stick to the top */
+        .page-heading {
+            margin-top: 48px;
+            margin-bottom: 24px;
+        }
+
+        /* task title on the left, buttons on the right.
+           .card prefix makes this win over Bootstrap's own .card-body styles */
+        .card .task-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            /* smaller padding = shorter cards */
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #bb2d3b;
+            border-color: #bb2d3b;
+            color: white;
         }
     </style>
 </head>
 
 <body>
     <!-- container is like a box that holds all the content of your webpage and keeps it neatly centered on the screen. -->
-    <div class="container">
-        <h1 class="mt-5 text-center">Todo Application</h1>
-        <!-- row : creates horizontal row for arranging columns ,mt-3 : adds margin to top -->
-        <form action="/" method="post" class="row mt-3">
-            <div class="col-md 10">
-                <!-- form-control : to style input form,gives border and makes input larger than default size -->
-                <input class="form-control form-control-lg" type="text" name="title" placeholder="Add a new task.."
-                    required>
-
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-solid theme-primary btn-lg btn-block">
-                    Add
-                </button>
-            </div>
+    <div class="container todo-box">
+        <h1 class="page-heading text-center">Hello Arushi, Welcome Back!!</h1>
+        <!-- add-form : puts the input and Add button side by side (see <style>), mt-3 : adds margin to top -->
+        <form action="/" method="post" class="add-form mt-3">
+            <!-- form-control : to style input form,gives border and makes input larger than default size -->
+            <!-- required : makes sure user cannot submit empty task -->
+            <input class="form-control form-control-lg" type="text" name="title" placeholder="Add a new task.."
+                required>
+            <button type="submit" class="btn btn-solid theme-primary btn-lg">
+                Add
+            </button>
         </form>
         <!-- helps in iterating through each task -->
         <div class="mt-4">
             <th:block th:each="task : ${tasks}">
                 <!-- create a card with a space below it -->
                 <div class="card mb-2">
-                    <!-- add padding inside the card,enables flexbox to arrange child elements in a row or col,distribute child ele and place space b/w them, alignment for child elements -->
-                    <div class="card-body d-flex justify-content-between align-items-center">
+                    <!-- add padding inside the card, task-row (see <style>) puts the title on the left and buttons on the right -->
+                    <div class="card-body task-row">
                         <span th:classappend="${task.completed} ? 'text-strikethrough'" th:text="${task.title}">Task
                             Title</span>
-                        <div>
+                        <div class="task-actions">
                             <a th:href="@{/{id}/toggle(id=${task.id})}"
                                 class="btn btn-outline-secondary btn-sm">Toggle</a>
-                            <!-- <a> tag defines element as hyperlink, and class="" makes link look like a small, outlined red button -->
-                            <a th:href="@{/{id}/delete(id=${task.id})}" class="btn btn-outline-danger btn-sm">Delete</a>
+                            <!-- <a> tag defines element as hyperlink, btn-delete (see <style>) makes it a small red button -->
+                            <a th:href="@{/{id}/delete(id=${task.id})}" class="btn btn-delete btn-sm">Delete</a>
 
                         </div>
 
