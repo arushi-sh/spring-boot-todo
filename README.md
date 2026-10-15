@@ -4,7 +4,7 @@ A simple Todo application built with Java and Spring Boot to practice backend de
 
 ## Preview
 
-
+![Todo App Screenshot](prev.png)
 
 ## Features
 - Add new tasks
